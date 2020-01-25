@@ -18,6 +18,7 @@ Par lisibilité, les erreurs 401 et 403 ne sont pas indiquées.
 	* Permet de créer un nouveau token ( = connexion utilisateur)
 	* Accessible sans être connecté
 	* BodyParams :
+	* 
 ```json
 {
 	"clientId":"your client id",
@@ -25,15 +26,18 @@ Par lisibilité, les erreurs 401 et 403 ne sont pas indiquées.
 	"password":"User password"
 }
 ```
+
 	* Retours :
 		* 200 OK : Authentification réussie
 			* Body :
+
 ```json
 {
 	"access_token":"Le token signé pour le service (clientId) désiré",
 	"user_token":"Le token signé pour permettre à l'utilisateur de s'authentifier sur la mire (modification de mot de passe, etc)"
 }
 ```
+
 		* 400 BAD REQUEST : Erreur à l'authentification. Des détails sont disponibles dans le body.
 
 * POST /token/introspect
