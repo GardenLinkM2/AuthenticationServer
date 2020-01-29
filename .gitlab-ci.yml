@@ -1,4 +1,4 @@
-image: mobile
+image: customjava
 
 stages:
     - build
