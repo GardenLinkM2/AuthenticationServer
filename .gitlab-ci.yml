@@ -1,0 +1,9 @@
+image: mobile
+
+stages:
+    - build
+
+build_job:
+    stage: build
+    script:
+        - mvn -U clean deploy
