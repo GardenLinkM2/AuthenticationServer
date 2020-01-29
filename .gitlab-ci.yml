@@ -6,4 +6,4 @@ stages:
 build_job:
     stage: build
     script:
-        - mvn -U clean deploy
+        - mvn -U -Dmaven.wagon.http.ssl.insecure=true clean deploy
