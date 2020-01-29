@@ -6,4 +6,4 @@ stages:
 build_job:
     stage: build
     script:
-        - mvn -U -Dmaven.wagon.http.ssl.insecure=true clean deploy sonar:sonar -Dsonar.projectKey=authentication -Dsonar.host.url=http://mullnir.artheriom.fr:9000 -Dsonar.login=9afcb6be31a8be44ff41ebd0010c5477b7cffb56
+        - mvn -U -Dmaven.wagon.http.ssl.insecure=true clean deploy sonar:sonar -Dsonar.projectKey=authentication -Dsonar.host.url=https://quality.artheriom.fr/ -Dsonar.login=9afcb6be31a8be44ff41ebd0010c5477b7cffb56
