@@ -20,12 +20,12 @@
         <id>central</id>
         <name>3bf2448dd8bd-releases</name>
         <url>https://binaries.artheriom.fr/artifactory/libs-release-local</url>
+	</repository>
 		 <snapshotRepository>
         <id>snapshots</id>
         <name>3bf2448dd8bd-snapshots</name>
         <url>https://binaries.artheriom.fr/artifactory/libs-snapshot-local</url>
     </snapshotRepository>
-    </repository>
 	
 	
 	</distributionManagement>
