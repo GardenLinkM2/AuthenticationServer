@@ -13,7 +13,15 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>authentication</name>
 	<description>Demo project for Spring Boot</description>
-	
+
+
+	<scm>
+		<url>https://git.archal.fr/projetm2/authenticationserver</url>
+		<connection>scm:git:ssh://git@git.archal.fr:2222/projetm2/authenticationserver.git</connection>
+		<developerConnection>scm:git:ssh://git@git.archal.fr:2222/projetm2/authenticationserver.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
+
 	<distributionManagement>
 	
     <repository>
