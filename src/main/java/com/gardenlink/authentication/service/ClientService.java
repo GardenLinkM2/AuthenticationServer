@@ -48,26 +48,26 @@ public class ClientService {
     }
 
     public AuthClient create(DTOAuthClient dtoAuthClient){
-        if(dtoAuthClient.clientId==null || dtoAuthClient.clientId.isEmpty()) {
+        if(dtoAuthClient.getClientId()==null || dtoAuthClient.getClientId().isEmpty()) {
             return null;
         }
-        if(dtoAuthClient.clientName==null || dtoAuthClient.clientName.isEmpty()) {
+        if(dtoAuthClient.getClientName()==null || dtoAuthClient.getClientName().isEmpty()) {
             return null;
         }
-        if(dtoAuthClient.clientBaseURL==null || dtoAuthClient.clientBaseURL.isEmpty()) {
+        if(dtoAuthClient.getClientBaseURL()==null || dtoAuthClient.getClientBaseURL().isEmpty()) {
             return null;
         }
 
-        if(getByClientId(dtoAuthClient.clientId) != null){
+        if(getByClientId(dtoAuthClient.getClientId()) != null){
             return null;
         }
 
         //Everything is ok, generating.
         AuthClient authClient = new AuthClient();
         authClient.setClientSecret(RandomString.make(24));
-        authClient.setClientBaseURL(dtoAuthClient.clientBaseURL);
-        authClient.setClientName(dtoAuthClient.clientName);
-        authClient.setClientId(dtoAuthClient.clientId);
+        authClient.setClientBaseURL(dtoAuthClient.getClientBaseURL());
+        authClient.setClientName(dtoAuthClient.getClientName());
+        authClient.setClientId(dtoAuthClient.getClientId());
 
         return clientRepository.save(authClient);
     }

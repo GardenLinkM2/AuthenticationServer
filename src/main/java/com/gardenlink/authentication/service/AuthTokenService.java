@@ -31,7 +31,7 @@ public class AuthTokenService {
             return false;
         }
 
-        RepudiatedToken repudiatedToken = repudiatedTokenRepository.getById(tok.tokenId).orElse(null);
+        RepudiatedToken repudiatedToken = repudiatedTokenRepository.getById(tok.getTokenId()).orElse(null);
         return repudiatedToken != null;
 
     }
@@ -41,29 +41,29 @@ public class AuthTokenService {
 
         if(tok!=null){
             RepudiatedToken repudiatedToken = new RepudiatedToken();
-            repudiatedToken.setId(tok.tokenId);
+            repudiatedToken.setId(tok.getTokenId());
             repudiatedTokenRepository.save(repudiatedToken);
         }
 
     }
 
     public Map<String, String> doConnect(DTOAuthToken dtoAuthToken){
-        if(dtoAuthToken.clientId==null || dtoAuthToken.clientId.isEmpty()){
+        if(dtoAuthToken.getClientId()==null || dtoAuthToken.getClientId().isEmpty()){
             return null;
         }
-        if(dtoAuthToken.password==null || dtoAuthToken.password.isEmpty()){
+        if(dtoAuthToken.getPassword()==null || dtoAuthToken.getPassword().isEmpty()){
             return null;
         }
-        if(dtoAuthToken.username==null || dtoAuthToken.username.isEmpty()){
+        if(dtoAuthToken.getUsername()==null || dtoAuthToken.getUsername().isEmpty()){
             return null;
         }
 
-        AuthUser authUser = userService.getByUsername(dtoAuthToken.username);
+        AuthUser authUser = userService.getByUsername(dtoAuthToken.getUsername());
         if(authUser==null){
             return null;
         }
 
-        AuthClient authClient = clientService.getByClientId(dtoAuthToken.clientId);
+        AuthClient authClient = clientService.getByClientId(dtoAuthToken.getClientId());
         if(authClient==null){
             return null;
         }
@@ -74,7 +74,7 @@ public class AuthTokenService {
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-        if(!passwordEncoder.matches(dtoAuthToken.password, authUser.getPassword())){
+        if(!passwordEncoder.matches(dtoAuthToken.getPassword(), authUser.getPassword())){
             return null;
         }
 
@@ -139,13 +139,13 @@ public class AuthTokenService {
 
             Claims claims = Jwts.parser().setSigningKey(authClient.getClientSecret()).parseClaimsJws(token).getBody();
 
-            dtoTokenInformation.emitter = claims.get("emitter", String.class);
-            dtoTokenInformation.expirationTime = claims.get("exp", Date.class);
-            dtoTokenInformation.isAdmin = claims.get("isAdmin", Boolean.class);
-            dtoTokenInformation.tokenId = claims.get("jti", String.class);
-            dtoTokenInformation.username = claims.get("sub", String.class);
-            dtoTokenInformation.uuid = claims.get("uuid", String.class);
-            dtoTokenInformation.token = token;
+            dtoTokenInformation.setEmitter(claims.get("emitter", String.class));
+            dtoTokenInformation.setExpirationTime(claims.get("exp", Date.class));
+            dtoTokenInformation.setAdmin(claims.get("isAdmin", Boolean.class));
+            dtoTokenInformation.setTokenId(claims.get("jti", String.class));
+            dtoTokenInformation.setUsername(claims.get("sub", String.class));
+            dtoTokenInformation.setUuid(claims.get("uuid", String.class));
+            dtoTokenInformation.setToken(token);
 
             return dtoTokenInformation;
 

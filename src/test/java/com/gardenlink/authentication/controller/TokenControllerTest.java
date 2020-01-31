@@ -45,7 +45,7 @@ public class TokenControllerTest {
     public void TestIntrospectToken(){
 
         DTOTokenInformation dtoTokenInformation = new DTOTokenInformation();
-        dtoTokenInformation.token = "ahiduz";
+        dtoTokenInformation.setToken("ahiduz");
 
         when(authTokenService.introspect(any())).thenReturn(dtoTokenInformation);
         when(authTokenService.isRepudiated(any())).thenReturn(false);

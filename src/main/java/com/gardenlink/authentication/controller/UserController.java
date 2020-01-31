@@ -33,7 +33,7 @@ public class UserController {
 
         Page<AuthUser> authUsers =userService.getUsers(page);
 
-        if(token==null || !token.isAdmin || !token.emitter.equals("account")){
+        if(token==null || !token.getAdmin() || !token.getEmitter().equals("account")){
             authUsers.forEach(e -> { e.setEmail("hidden"); e.setPhone("hidden");});
         }
 
@@ -50,7 +50,7 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
 
-        if (token == null || !token.emitter.equals("account") || (!token.isAdmin && !token.uuid.equals(id))) {
+        if (token == null || !token.getEmitter().equals("account") || (!token.getAdmin() && !token.getUuid().equals(id))) {
             authUser.setEmail("hidden");
             authUser.setPhone("hidden");
         }
@@ -62,13 +62,13 @@ public class UserController {
     public ResponseEntity<Void> deleteUser(@PathVariable("id") String id, HttpServletRequest request) {
         DTOTokenInformation token = authTokenService.introspect(request.getHeader(HttpHeaders.AUTHORIZATION));
 
-        if (token == null || !token.emitter.equals("account") || ((!token.isAdmin && !token.uuid.equals(id)))) {
+        if (token == null || !token.getEmitter().equals("account") || ((!token.getAdmin() && !token.getUuid().equals(id)))) {
             return ResponseEntity.status(403).build();
         }
 
         userService.delete(id);
 
-        if(token.uuid.equals(id)){
+        if(token.getUuid().equals(id)){
             authTokenService.repudiateToken(request.getHeader(HttpHeaders.AUTHORIZATION));
         }
 
@@ -80,7 +80,7 @@ public class UserController {
     public ResponseEntity<AuthUser> updateUserInfo(@PathVariable("id") String id, @NotNull @Validated @RequestBody DTOAuthUser dtoAuthUser, HttpServletRequest request) {
         DTOTokenInformation token = authTokenService.introspect(request.getHeader(HttpHeaders.AUTHORIZATION));
 
-        if (token == null || !token.emitter.equals("account") ||((!token.isAdmin && !token.uuid.equals(id)))) {
+        if (token == null || !token.getEmitter().equals("account") ||((!token.getAdmin() && !token.getUuid().equals(id)))) {
             return ResponseEntity.status(403).build();
         }
 
@@ -108,7 +108,7 @@ public class UserController {
 
     @PostMapping("/newpassword/{token}")
     public ResponseEntity<Void> newPassword(@PathVariable("token") String token, @NotNull @Validated @RequestBody DTOAuthUser dtoAuthUser){
-        if(token==null || token.isEmpty() || dtoAuthUser.password==null || dtoAuthUser.password.isEmpty()){
+        if(token==null || token.isEmpty() || dtoAuthUser.getPassword()==null || dtoAuthUser.getPassword().isEmpty()){
             return ResponseEntity.badRequest().build();
         }
         Boolean bool = userService.newPassword(token, dtoAuthUser);

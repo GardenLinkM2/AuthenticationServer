@@ -77,11 +77,11 @@ public class ClientServiceTest {
     public void create(){
         DTOAuthClient dtoAuthClient = new DTOAuthClient();
         assertThat(clientService.create(dtoAuthClient)).isEqualTo(null);
-        dtoAuthClient.clientId="coucou";
+        dtoAuthClient.setClientId("coucou");
         assertThat(clientService.create(dtoAuthClient)).isEqualTo(null);
-        dtoAuthClient.clientName="ah";
+        dtoAuthClient.setClientName("ah");
         assertThat(clientService.create(dtoAuthClient)).isEqualTo(null);
-        dtoAuthClient.clientBaseURL="ziheu";
+        dtoAuthClient.setClientBaseURL("ziheu");
 
         when(clientRepository.getByClientId(any())).thenReturn(Optional.of(new AuthClient()));
         assertThat(clientService.create(dtoAuthClient)).isEqualTo(null);

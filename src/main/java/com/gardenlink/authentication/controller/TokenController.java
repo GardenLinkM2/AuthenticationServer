@@ -31,8 +31,8 @@ public class TokenController {
 
     @PostMapping(value = "/token/introspect", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DTOTokenInformation> tokenIntrospect(@NotNull @Validated @RequestBody DTOTokenInformation token){
-        DTOTokenInformation dtoTokenInformation = authTokenService.introspect(token.token);
-        if(dtoTokenInformation==null || authTokenService.isRepudiated(token.token)){
+        DTOTokenInformation dtoTokenInformation = authTokenService.introspect(token.getToken());
+        if(dtoTokenInformation==null || authTokenService.isRepudiated(token.getToken())){
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok(dtoTokenInformation);

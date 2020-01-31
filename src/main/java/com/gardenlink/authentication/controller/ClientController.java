@@ -47,7 +47,7 @@ public class ClientController {
     public ResponseEntity<Object> createClient(@NotNull @Validated @RequestBody DTOAuthClient dtoAuthClient, UriComponentsBuilder ucb, HttpServletRequest request){
         DTOTokenInformation token = authTokenService.introspect(request.getHeader(HttpHeaders.AUTHORIZATION));
 
-        if(token==null || !token.emitter.equals("account") || !token.isAdmin){
+        if(token==null || !token.getEmitter().equals("account") || !token.getAdmin()){
             return ResponseEntity.status(403).build();
         }
 
@@ -58,7 +58,7 @@ public class ClientController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteClient(@PathVariable("id") String id, HttpServletRequest request){
         DTOTokenInformation token = authTokenService.introspect(request.getHeader(HttpHeaders.AUTHORIZATION));
-        if(token==null || !token.emitter.equals("account") || !token.isAdmin){
+        if(token==null || !token.getEmitter().equals("account") || !token.getAdmin()){
             return ResponseEntity.status(403).build();
         }
 
@@ -69,7 +69,7 @@ public class ClientController {
     @GetMapping(value = "/{id}/regenerateSecret", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> regenerateSecret(@PathVariable("id") String id, HttpServletRequest request){
         DTOTokenInformation token = authTokenService.introspect(request.getHeader(HttpHeaders.AUTHORIZATION));
-        if(token==null || !token.emitter.equals("account") || !token.isAdmin){
+        if(token==null || !token.getEmitter().equals("account") || !token.getAdmin()){
             return ResponseEntity.status(403).build();
         }
         AuthClient authClient = clientService.regenerateSecret(id);

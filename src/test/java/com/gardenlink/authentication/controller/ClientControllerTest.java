@@ -85,9 +85,9 @@ public class ClientControllerTest {
         assertThat(clientController.createClient(new DTOAuthClient(), UriComponentsBuilder.newInstance(), request).getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
 
         DTOTokenInformation token = new DTOTokenInformation();
-        token.isAdmin=false;
-        token.uuid="coucou";
-        token.emitter="account";
+        token.setAdmin(false);
+        token.setUuid("coucou");
+        token.setEmitter("account");
         when(authTokenService.introspect(any())).thenReturn(token);
         assertThat(clientController.createClient(new DTOAuthClient(), UriComponentsBuilder.newInstance(), request).getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
 
@@ -95,7 +95,7 @@ public class ClientControllerTest {
         authClient.setId(UUID.randomUUID().toString());
         authClient.setClientSecret("a");
 
-        token.isAdmin=true;
+        token.setAdmin(true);
         when(clientService.create(any())).thenReturn(authClient);
         assertThat(clientController.createClient(new DTOAuthClient(), UriComponentsBuilder.newInstance(), request).getStatusCode()).isEqualTo(HttpStatus.CREATED);
 
@@ -112,13 +112,13 @@ public class ClientControllerTest {
         assertThat(clientController.deleteClient("a", request).getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
 
         DTOTokenInformation token = new DTOTokenInformation();
-        token.isAdmin=false;
-        token.emitter="account";
-        token.uuid="coucou";
+        token.setAdmin(false);
+        token.setUuid("coucou");
+        token.setEmitter("account");
         when(authTokenService.introspect(any())).thenReturn(token);
         assertThat(clientController.deleteClient("a", request).getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
 
-        token.isAdmin=true;
+        token.setAdmin(true);
 
         doNothing().when(clientService).delete(any());
         assertThat(clientController.deleteClient("a", request).getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -132,13 +132,13 @@ public class ClientControllerTest {
         assertThat(clientController.regenerateSecret("a", request).getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
 
         DTOTokenInformation token = new DTOTokenInformation();
-        token.isAdmin=false;
-        token.uuid="coucou";
-        token.emitter="account";
+        token.setAdmin(false);
+        token.setUuid("coucou");
+        token.setEmitter("account");
         when(authTokenService.introspect(any())).thenReturn(token);
         assertThat(clientController.regenerateSecret("a", request).getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
 
-        token.isAdmin=true;
+        token.setAdmin(true);
         when(clientService.regenerateSecret(any())).thenReturn(null);
         assertThat(clientController.regenerateSecret("a", request).getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
 

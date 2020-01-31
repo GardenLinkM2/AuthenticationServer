@@ -74,11 +74,11 @@ public class AuthTokenServiceTest {
         DTOAuthToken dtoAuthToken = new DTOAuthToken();
 
         assertThat(authTokenService.doConnect(dtoAuthToken)).isEqualTo(null);
-        dtoAuthToken.clientId = "out";
+        dtoAuthToken.setClientId("out");
         assertThat(authTokenService.doConnect(dtoAuthToken)).isEqualTo(null);
-        dtoAuthToken.password = "MTXtxJAB9LevJ5VCtORwJgbU";
+        dtoAuthToken.setPassword("MTXtxJAB9LevJ5VCtORwJgbU");
         assertThat(authTokenService.doConnect(dtoAuthToken)).isEqualTo(null);
-        dtoAuthToken.username = "username";
+        dtoAuthToken.setUsername("username");
         assertThat(authTokenService.doConnect(dtoAuthToken)).isEqualTo(null);
         when(userService.getByUsername(any())).thenReturn(null);
         assertThat(authTokenService.doConnect(dtoAuthToken)).isEqualTo(null);

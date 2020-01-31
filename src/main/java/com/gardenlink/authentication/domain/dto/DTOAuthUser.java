@@ -4,23 +4,107 @@ package com.gardenlink.authentication.domain.dto;
 public class DTOAuthUser {
 
 
-    public String id;
+    private String id;
 
-    public String username;
+    private String username;
 
-    public String firstName;
+    private String firstName;
 
-    public String lastName;
+    private String lastName;
 
-    public String role;
+    private String role;
 
-    public Boolean isAdmin;
+    private Boolean isAdmin;
 
-    public String password;
+    private String password;
 
-    public String avatar;
+    private String avatar;
 
-    public String phone;
+    private String phone;
 
-    public String email;
+    private String email;
+
+    public DTOAuthUser(){
+        //ign
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public Boolean getAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        isAdmin = admin;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }
