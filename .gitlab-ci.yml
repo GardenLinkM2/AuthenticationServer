@@ -1,4 +1,4 @@
-image: customjava
+image: local_java8
 
 stages:
     - build
