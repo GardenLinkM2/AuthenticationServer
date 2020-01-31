@@ -16,4 +16,11 @@ build_prd:
         - master
     script:
         - mvn -U clean deploy sonar:sonar
-        - mvn release
+        
+insight:
+    stage: build
+    except:
+        - develop
+        - master
+    script:
+        - mvn -U clean package sonar:sonar

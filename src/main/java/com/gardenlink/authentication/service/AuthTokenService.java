@@ -49,11 +49,9 @@ public class AuthTokenService {
 
     public Map<String, String> doConnect(DTOAuthToken dtoAuthToken){
         if(dtoAuthToken.clientId==null || dtoAuthToken.clientId.isEmpty()){
-            System.out.println("clientId is null");
             return null;
         }
         if(dtoAuthToken.password==null || dtoAuthToken.password.isEmpty()){
-            System.out.println("password is null");
             return null;
         }
         if(dtoAuthToken.username==null || dtoAuthToken.username.isEmpty()){
@@ -77,7 +75,6 @@ public class AuthTokenService {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
         if(!passwordEncoder.matches(dtoAuthToken.password, authUser.getPassword())){
-            System.out.println("Password does not match");
             return null;
         }
 
@@ -125,31 +122,36 @@ public class AuthTokenService {
         return retmap;
     }
 
-    public DTOTokenInformation introspect(String token){
-        //1. Get client used to sign token
-        String[] str = token.split("\\.");
-        String emitter = (String)Jwts.parser().parse(str[0]+"."+str[1]+".").getHeader().get("kid");
+    public DTOTokenInformation introspect(String token) {
+        try {
+            //1. Get client used to sign token
+            String[] str = token.split("\\.");
+            String emitter = (String) Jwts.parser().parse(str[0] + "." + str[1] + ".").getHeader().get("kid");
 
-        AuthClient authClient = clientService.getByClientId(emitter);
+            AuthClient authClient = clientService.getByClientId(emitter);
 
-        if(authClient==null){
+            if (authClient == null) {
+                return null;
+            }
+
+            //2 Parse token
+            DTOTokenInformation dtoTokenInformation = new DTOTokenInformation();
+
+            Claims claims = Jwts.parser().setSigningKey(authClient.getClientSecret()).parseClaimsJws(token).getBody();
+
+            dtoTokenInformation.emitter = claims.get("emitter", String.class);
+            dtoTokenInformation.expirationTime = claims.get("exp", Date.class);
+            dtoTokenInformation.isAdmin = claims.get("isAdmin", Boolean.class);
+            dtoTokenInformation.tokenId = claims.get("jti", String.class);
+            dtoTokenInformation.username = claims.get("sub", String.class);
+            dtoTokenInformation.uuid = claims.get("uuid", String.class);
+            dtoTokenInformation.token = token;
+
+            return dtoTokenInformation;
+
+        } catch (Exception e) {
             return null;
         }
-
-        //2 Parse token
-        DTOTokenInformation dtoTokenInformation = new DTOTokenInformation();
-
-        Claims claims = Jwts.parser().setSigningKey(authClient.getClientSecret()).parseClaimsJws(token).getBody();
-
-        dtoTokenInformation.emitter = claims.get("emitter", String.class);
-        dtoTokenInformation.expirationTime = claims.get("exp", Date.class);
-        dtoTokenInformation.isAdmin = claims.get("isAdmin", Boolean.class);
-        dtoTokenInformation.tokenId = claims.get("jti", String.class);
-        dtoTokenInformation.username = claims.get("sub", String.class);
-        dtoTokenInformation.uuid = claims.get("uuid", String.class);
-        dtoTokenInformation.token = token;
-
-        return dtoTokenInformation;
     }
 
 }
