@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 
+import static com.gardenlink.authentication.Constants.ACCOUNT_CLIENT_NAME;
+
 @RestController
 public class SetupController {
 
@@ -37,18 +39,18 @@ public class SetupController {
         }
 
         DTOAuthClient dtoAuthClient = new DTOAuthClient();
-        dtoAuthClient.clientBaseURL = "https://authm2.artheriom.fr/";
-        dtoAuthClient.clientId = "account";
-        dtoAuthClient.clientName = "Client account";
+        dtoAuthClient.setClientBaseURL("https://authm2.artheriom.fr/");
+        dtoAuthClient.setClientId(ACCOUNT_CLIENT_NAME);
+        dtoAuthClient.setClientName("Client account");
         AuthClient authClient = clientService.create(dtoAuthClient);
 
         DTOAuthUser dtoAuthUser =  new DTOAuthUser();
-        dtoAuthUser.password = RandomString.make(24);
-        dtoAuthUser.username = "administrator";
-        dtoAuthUser.phone = "+33610101010";
-        dtoAuthUser.firstName = "Administrator";
-        dtoAuthUser.lastName = "Account";
-        dtoAuthUser.email = "administrator@localhost.com";
+        dtoAuthUser.setPassword(RandomString.make(24));
+        dtoAuthUser.setUsername("administrator");
+        dtoAuthUser.setPhone("+33610101010");
+        dtoAuthUser.setFirstName("Administrator");
+        dtoAuthUser.setLastName("Account");
+        dtoAuthUser.setEmail("administrator@localhost.com");
         AuthUser authUser = userService.create(dtoAuthUser);
         userService.promote(authUser.getId());
 
@@ -56,7 +58,7 @@ public class SetupController {
         ret.put("clientID", authClient.getClientId());
         ret.put("clientSecret", authClient.getClientSecret());
         ret.put("username", authUser.getUsername());
-        ret.put("password", dtoAuthUser.password);
+        ret.put("password", dtoAuthUser.getPassword());
 
         return ResponseEntity.ok(ret);
     }

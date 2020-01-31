@@ -43,9 +43,9 @@ public class UserServiceTest {
          when(userRepository.getById(any())).thenReturn(Optional.of(authUser));
 
          DTOAuthUser dtoAuthUser = new DTOAuthUser();
-         dtoAuthUser.avatar="aiuhde";
-         dtoAuthUser.password="iuhre";
-         dtoAuthUser.phone="002544";
+         dtoAuthUser.setAvatar("aiuhde");
+         dtoAuthUser.setPassword("iuhre");
+         dtoAuthUser.setPhone("002544");
 
          userService.updateUser("4", dtoAuthUser);
     }
@@ -88,17 +88,17 @@ public class UserServiceTest {
         DTOAuthUser dtoAuthUser = new DTOAuthUser();
 
         assertThat(userService.create(dtoAuthUser)).isEqualTo(null);
-        dtoAuthUser.username="coucou";
+        dtoAuthUser.setUsername("coucou");
         assertThat(userService.create(dtoAuthUser)).isEqualTo(null);
-        dtoAuthUser.firstName="flo";
+        dtoAuthUser.setFirstName("flo");
         assertThat(userService.create(dtoAuthUser)).isEqualTo(null);
-        dtoAuthUser.lastName="test";
+        dtoAuthUser.setLastName("test");
         assertThat(userService.create(dtoAuthUser)).isEqualTo(null);
-        dtoAuthUser.email="mail";
+        dtoAuthUser.setEmail("mail");
         assertThat(userService.create(dtoAuthUser)).isEqualTo(null);
-        dtoAuthUser.password="pass";
+        dtoAuthUser.setPassword("pass");
         assertThat(userService.create(dtoAuthUser)).isEqualTo(null);
-        dtoAuthUser.phone="0000";
+        dtoAuthUser.setPhone("0000");
 
         when(userRepository.getByEmail(any())).thenReturn(Optional.of(new AuthUser()));
         assertThat(userService.create(dtoAuthUser)).isEqualTo(null);
@@ -110,7 +110,7 @@ public class UserServiceTest {
 
         when(userRepository.save(any())).thenReturn(new AuthUser());
         userService.create(dtoAuthUser);
-        dtoAuthUser.avatar="afer";
+        dtoAuthUser.setAvatar("afer");
         userService.create(dtoAuthUser);
     }
 
@@ -137,7 +137,7 @@ public class UserServiceTest {
         assertThat(userService.newPassword("ah", new DTOAuthUser())).isEqualTo(false);
 
         DTOAuthUser dtoAuthUser = new DTOAuthUser();
-        dtoAuthUser.password = "newpwd";
+        dtoAuthUser.setPassword("newpwd");
 
         when(userRepository.getByResetToken(any())).thenReturn(Optional.empty());
         assertThat(userService.newPassword("ah", dtoAuthUser)).isEqualTo(false);

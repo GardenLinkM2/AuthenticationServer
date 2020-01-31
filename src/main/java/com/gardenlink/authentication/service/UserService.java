@@ -1,5 +1,6 @@
 package com.gardenlink.authentication.service;
 
+import com.gardenlink.authentication.Constants;
 import com.gardenlink.authentication.domain.AuthUser;
 import com.gardenlink.authentication.domain.dto.DTOAuthUser;
 import com.gardenlink.authentication.repository.UserRepository;
@@ -28,15 +29,15 @@ public class UserService {
             return null;
         }
 
-        if(dtoAuthUser.avatar!=null && !dtoAuthUser.avatar.isEmpty()) {
-            authUser.setAvatar(dtoAuthUser.avatar);
+        if(dtoAuthUser.getAvatar()!=null && !dtoAuthUser.getAvatar().isEmpty()) {
+            authUser.setAvatar(dtoAuthUser.getAvatar());
         }
-        if(dtoAuthUser.password!=null && !dtoAuthUser.password.isEmpty()){
+        if(dtoAuthUser.getPassword()!=null && !dtoAuthUser.getPassword().isEmpty()){
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-            authUser.setPassword(passwordEncoder.encode(dtoAuthUser.password));
+            authUser.setPassword(passwordEncoder.encode(dtoAuthUser.getPassword()));
         }
-        if(dtoAuthUser.phone!=null && !dtoAuthUser.phone.isEmpty()){
-            authUser.setPhone(dtoAuthUser.phone);
+        if(dtoAuthUser.getPhone()!=null && !dtoAuthUser.getPhone().isEmpty()){
+            authUser.setPhone(dtoAuthUser.getPhone());
         }
 
         return userRepository.save(authUser);
@@ -85,50 +86,51 @@ public class UserService {
     }
 
     public AuthUser create(DTOAuthUser dtoAuthUser){
-        if(dtoAuthUser.username==null || dtoAuthUser.username.isEmpty()) {
+
+        if(Constants.isEmptyOrNull(dtoAuthUser.getUsername())) {
             return null;
         }
-        if(dtoAuthUser.firstName==null || dtoAuthUser.firstName.isEmpty()) {
+        if(Constants.isEmptyOrNull(dtoAuthUser.getFirstName())) {
             return null;
         }
-        if(dtoAuthUser.lastName==null || dtoAuthUser.lastName.isEmpty()){
+        if(Constants.isEmptyOrNull(dtoAuthUser.getLastName())){
             return null;
         }
-        if(dtoAuthUser.email==null || dtoAuthUser.email.isEmpty()){
+        if(Constants.isEmptyOrNull(dtoAuthUser.getEmail())){
             return null;
         }
-        if(dtoAuthUser.password==null || dtoAuthUser.password.isEmpty()){
+        if(Constants.isEmptyOrNull(dtoAuthUser.getPassword())){
             return null;
         }
-        if(dtoAuthUser.phone==null || dtoAuthUser.phone.isEmpty()) {
+        if(Constants.isEmptyOrNull(dtoAuthUser.getPhone())) {
             return null;
         }
 
         //Check email + username unique
-        if(getByEmail(dtoAuthUser.email)!=null){
+        if(getByEmail(dtoAuthUser.getEmail())!=null){
             return null;
         }
-        if(getByUsername(dtoAuthUser.username)!=null){
+        if(getByUsername(dtoAuthUser.getUsername())!=null){
             return null;
         }
 
         AuthUser authUser = new AuthUser();
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        authUser.setPassword(passwordEncoder.encode(dtoAuthUser.password));
+        authUser.setPassword(passwordEncoder.encode(dtoAuthUser.getPassword()));
         authUser.setAdmin(false);
 
-        if ((dtoAuthUser.avatar == null)) {
+        if ((dtoAuthUser.getAvatar() == null)) {
             authUser.setAvatar("");
         } else {
-            authUser.setAvatar(dtoAuthUser.avatar);
+            authUser.setAvatar(dtoAuthUser.getAvatar());
         }
 
-        authUser.setUsername(dtoAuthUser.username);
-        authUser.setFirstName(dtoAuthUser.firstName);
-        authUser.setLastName(dtoAuthUser.lastName);
-        authUser.setEmail(dtoAuthUser.email);
-        authUser.setPhone(dtoAuthUser.phone);
+        authUser.setUsername(dtoAuthUser.getUsername());
+        authUser.setFirstName(dtoAuthUser.getFirstName());
+        authUser.setLastName(dtoAuthUser.getLastName());
+        authUser.setEmail(dtoAuthUser.getEmail());
+        authUser.setPhone(dtoAuthUser.getPhone());
 
         return userRepository.save(authUser);
     }
@@ -148,7 +150,7 @@ public class UserService {
     }
 
     public Boolean newPassword(String token, DTOAuthUser dtoAuthUser){
-        if(token==null || token.isEmpty() || dtoAuthUser.password==null || dtoAuthUser.password.isEmpty()){
+        if(token==null || token.isEmpty() || dtoAuthUser.getPassword()==null || dtoAuthUser.getPassword().isEmpty()){
             return false;
         }
 
@@ -158,7 +160,7 @@ public class UserService {
         }
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        authUser.setPassword(passwordEncoder.encode(dtoAuthUser.password));
+        authUser.setPassword(passwordEncoder.encode(dtoAuthUser.getPassword()));
         authUser.setResetToken("");
 
         userRepository.save(authUser);

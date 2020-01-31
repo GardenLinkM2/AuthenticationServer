@@ -16,6 +16,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
 
+import static com.gardenlink.authentication.Constants.ACCOUNT_CLIENT_NAME;
+import static com.gardenlink.authentication.Constants.HIDDEN_VAR;
+
 @RestController
 public class UserController {
 
@@ -33,8 +36,8 @@ public class UserController {
 
         Page<AuthUser> authUsers =userService.getUsers(page);
 
-        if(token==null || !token.isAdmin || !token.emitter.equals("account")){
-            authUsers.forEach(e -> { e.setEmail("hidden"); e.setPhone("hidden");});
+        if(token==null || !token.getAdmin() || !token.getEmitter().equals(ACCOUNT_CLIENT_NAME)){
+            authUsers.forEach(e -> { e.setEmail(HIDDEN_VAR); e.setPhone(HIDDEN_VAR);});
         }
 
         return ResponseEntity.ok().body(userService.getUsers(page));
@@ -50,9 +53,9 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
 
-        if (token == null || !token.emitter.equals("account") || (!token.isAdmin && !token.uuid.equals(id))) {
-            authUser.setEmail("hidden");
-            authUser.setPhone("hidden");
+        if (token == null || !token.getEmitter().equals(ACCOUNT_CLIENT_NAME) || (Boolean.FALSE.equals(token.getAdmin()) && !token.getUuid().equals(id))) {
+            authUser.setEmail(HIDDEN_VAR);
+            authUser.setPhone(HIDDEN_VAR);
         }
         return ResponseEntity.ok(authUser);
 
@@ -62,13 +65,13 @@ public class UserController {
     public ResponseEntity<Void> deleteUser(@PathVariable("id") String id, HttpServletRequest request) {
         DTOTokenInformation token = authTokenService.introspect(request.getHeader(HttpHeaders.AUTHORIZATION));
 
-        if (token == null || !token.emitter.equals("account") || ((!token.isAdmin && !token.uuid.equals(id)))) {
+        if (token == null || !token.getEmitter().equals(ACCOUNT_CLIENT_NAME) || (Boolean.FALSE.equals(token.getAdmin()) && !token.getUuid().equals(id))) {
             return ResponseEntity.status(403).build();
         }
 
         userService.delete(id);
 
-        if(token.uuid.equals(id)){
+        if(token.getUuid().equals(id)){
             authTokenService.repudiateToken(request.getHeader(HttpHeaders.AUTHORIZATION));
         }
 
@@ -80,7 +83,7 @@ public class UserController {
     public ResponseEntity<AuthUser> updateUserInfo(@PathVariable("id") String id, @NotNull @Validated @RequestBody DTOAuthUser dtoAuthUser, HttpServletRequest request) {
         DTOTokenInformation token = authTokenService.introspect(request.getHeader(HttpHeaders.AUTHORIZATION));
 
-        if (token == null || !token.emitter.equals("account") ||((!token.isAdmin && !token.uuid.equals(id)))) {
+        if (token == null || !token.getEmitter().equals(ACCOUNT_CLIENT_NAME) ||(Boolean.FALSE.equals(token.getAdmin()) && !token.getUuid().equals(id))) {
             return ResponseEntity.status(403).build();
         }
 
@@ -103,16 +106,16 @@ public class UserController {
     @GetMapping("/lostpassword/{email}")
     public ResponseEntity<Void> lostPassword(@PathVariable("email") String email){
         Boolean bool = userService.sendPasswordResetMail(email);
-        return (bool)?ResponseEntity.ok().build():ResponseEntity.badRequest().build();
+        return (Boolean.TRUE.equals(bool))?ResponseEntity.ok().build():ResponseEntity.badRequest().build();
     }
 
     @PostMapping("/newpassword/{token}")
     public ResponseEntity<Void> newPassword(@PathVariable("token") String token, @NotNull @Validated @RequestBody DTOAuthUser dtoAuthUser){
-        if(token==null || token.isEmpty() || dtoAuthUser.password==null || dtoAuthUser.password.isEmpty()){
+        if(token==null || token.isEmpty() || dtoAuthUser.getPassword()==null || dtoAuthUser.getPassword().isEmpty()){
             return ResponseEntity.badRequest().build();
         }
         Boolean bool = userService.newPassword(token, dtoAuthUser);
-        return (bool)?ResponseEntity.ok().build():ResponseEntity.badRequest().build();
+        return (Boolean.TRUE.equals(bool))?ResponseEntity.ok().build():ResponseEntity.badRequest().build();
     }
 
 }

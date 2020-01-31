@@ -4,19 +4,76 @@ import java.util.Date;
 
 public class DTOTokenInformation {
 
-    public String token;
+    private String token;
 
-    public Boolean isAdmin;
+    private Boolean isAdmin;
 
-    public String uuid;
+    private String uuid;
 
-    public String emitter;
+    private String emitter;
 
-    public String tokenId;
+    private String tokenId;
 
-    public String username;
+    private String username;
 
-    public Date expirationTime;
+    private Date expirationTime;
+
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public Boolean getAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        isAdmin = admin;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public String getEmitter() {
+        return emitter;
+    }
+
+    public void setEmitter(String emitter) {
+        this.emitter = emitter;
+    }
+
+    public String getTokenId() {
+        return tokenId;
+    }
+
+    public void setTokenId(String tokenId) {
+        this.tokenId = tokenId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Date getExpirationTime() {
+        return expirationTime;
+    }
+
+    public void setExpirationTime(Date expirationTime) {
+        this.expirationTime = expirationTime;
+    }
 
     public DTOTokenInformation(){
         //ign
