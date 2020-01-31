@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
 
 import static com.gardenlink.authentication.Constants.ACCOUNT_CLIENT_NAME;
+import static com.gardenlink.authentication.Constants.HIDDEN_VAR;
 
 @RestController
 public class UserController {
@@ -36,7 +37,7 @@ public class UserController {
         Page<AuthUser> authUsers =userService.getUsers(page);
 
         if(token==null || !token.getAdmin() || !token.getEmitter().equals(ACCOUNT_CLIENT_NAME)){
-            authUsers.forEach(e -> { e.setEmail("hidden"); e.setPhone("hidden");});
+            authUsers.forEach(e -> { e.setEmail(HIDDEN_VAR); e.setPhone(HIDDEN_VAR);});
         }
 
         return ResponseEntity.ok().body(userService.getUsers(page));
@@ -53,8 +54,8 @@ public class UserController {
         }
 
         if (token == null || !token.getEmitter().equals(ACCOUNT_CLIENT_NAME) || (Boolean.FALSE.equals(token.getAdmin()) && !token.getUuid().equals(id))) {
-            authUser.setEmail("hidden");
-            authUser.setPhone("hidden");
+            authUser.setEmail(HIDDEN_VAR);
+            authUser.setPhone(HIDDEN_VAR);
         }
         return ResponseEntity.ok(authUser);
 
