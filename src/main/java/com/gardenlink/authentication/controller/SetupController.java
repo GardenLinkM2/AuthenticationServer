@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 
+import static com.gardenlink.authentication.Constants.ACCOUNT_CLIENT_NAME;
+
 @RestController
 public class SetupController {
 
@@ -38,7 +40,7 @@ public class SetupController {
 
         DTOAuthClient dtoAuthClient = new DTOAuthClient();
         dtoAuthClient.setClientBaseURL("https://authm2.artheriom.fr/");
-        dtoAuthClient.setClientId("account");
+        dtoAuthClient.setClientId(ACCOUNT_CLIENT_NAME);
         dtoAuthClient.setClientName("Client account");
         AuthClient authClient = clientService.create(dtoAuthClient);
 

@@ -44,7 +44,7 @@ public class SendLostPasswordMail {
         try {
             javaMailSender.send(messagePreparator);
         } catch (MailException e) {
-            System.out.println("Error ! " +e.toString());
+            System.err.println("Error ! " +e.toString());
         }
     }
 
