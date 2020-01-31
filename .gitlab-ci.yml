@@ -3,7 +3,17 @@ image: local_java8
 stages:
     - build
 
-build_job:
+build_dev:
     stage: build
+    only:
+        - develop
     script:
         - mvn -U clean deploy sonar:sonar
+        
+build_prd:
+    stage: build
+    only:
+        - master
+    script:
+        - mvn -U clean deploy sonar:sonar
+    
