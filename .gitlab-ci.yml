@@ -16,4 +16,5 @@ build_prd:
         - master
     script:
         - mvn -U clean deploy sonar:sonar
+        - maven-release
     
