@@ -1,5 +1,6 @@
 package com.gardenlink.authentication.service;
 
+import com.gardenlink.authentication.Constants;
 import com.gardenlink.authentication.domain.AuthUser;
 import com.gardenlink.authentication.domain.dto.DTOAuthUser;
 import com.gardenlink.authentication.repository.UserRepository;
@@ -85,22 +86,23 @@ public class UserService {
     }
 
     public AuthUser create(DTOAuthUser dtoAuthUser){
-        if(dtoAuthUser.getUsername()==null || dtoAuthUser.getUsername().isEmpty()) {
+
+        if(Constants.isEmptyOrNull(dtoAuthUser.getUsername())) {
             return null;
         }
-        if(dtoAuthUser.getFirstName()==null || dtoAuthUser.getFirstName().isEmpty()) {
+        if(Constants.isEmptyOrNull(dtoAuthUser.getFirstName())) {
             return null;
         }
-        if(dtoAuthUser.getLastName()==null || dtoAuthUser.getLastName().isEmpty()){
+        if(Constants.isEmptyOrNull(dtoAuthUser.getLastName())){
             return null;
         }
-        if(dtoAuthUser.getEmail()==null || dtoAuthUser.getEmail().isEmpty()){
+        if(Constants.isEmptyOrNull(dtoAuthUser.getEmail())){
             return null;
         }
-        if(dtoAuthUser.getPassword()==null || dtoAuthUser.getPassword().isEmpty()){
+        if(Constants.isEmptyOrNull(dtoAuthUser.getPassword())){
             return null;
         }
-        if(dtoAuthUser.getPhone()==null || dtoAuthUser.getPhone().isEmpty()) {
+        if(Constants.isEmptyOrNull(dtoAuthUser.getPhone())) {
             return null;
         }
 

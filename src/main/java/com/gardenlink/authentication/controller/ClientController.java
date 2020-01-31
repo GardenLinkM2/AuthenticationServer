@@ -60,7 +60,7 @@ public class ClientController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteClient(@PathVariable("id") String id, HttpServletRequest request){
         DTOTokenInformation token = authTokenService.introspect(request.getHeader(HttpHeaders.AUTHORIZATION));
-        if(token==null || !token.getEmitter().equals(ACCOUNT_CLIENT_NAME) || !token.getAdmin()){
+        if(token==null || !token.getEmitter().equals(ACCOUNT_CLIENT_NAME) || Boolean.FALSE.equals(token.getAdmin())){
             return ResponseEntity.status(403).build();
         }
 

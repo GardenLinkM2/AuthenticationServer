@@ -105,7 +105,7 @@ public class UserController {
     @GetMapping("/lostpassword/{email}")
     public ResponseEntity<Void> lostPassword(@PathVariable("email") String email){
         Boolean bool = userService.sendPasswordResetMail(email);
-        return (bool)?ResponseEntity.ok().build():ResponseEntity.badRequest().build();
+        return (Boolean.TRUE.equals(bool))?ResponseEntity.ok().build():ResponseEntity.badRequest().build();
     }
 
     @PostMapping("/newpassword/{token}")
@@ -114,7 +114,7 @@ public class UserController {
             return ResponseEntity.badRequest().build();
         }
         Boolean bool = userService.newPassword(token, dtoAuthUser);
-        return (bool)?ResponseEntity.ok().build():ResponseEntity.badRequest().build();
+        return (Boolean.TRUE.equals(bool))?ResponseEntity.ok().build():ResponseEntity.badRequest().build();
     }
 
 }
