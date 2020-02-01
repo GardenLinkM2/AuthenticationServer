@@ -7,4 +7,4 @@
         content: "app.jar"
         dest: "app.jar"
         mode: 0600
-  no_log: true
+  no_log: false

@@ -11,12 +11,12 @@ build_dev:
     script:
         - mvn -U clean deploy sonar:sonar
         
-build_prd:
-    stage: build
-    only:
-        - master
-    script:
-        - mvn -U clean deploy sonar:sonar
+#build_prd:
+#    stage: build
+#    only:
+#        - master
+#    script:
+#        - mvn -U clean deploy sonar:sonar
         
 insight:
     stage: build
