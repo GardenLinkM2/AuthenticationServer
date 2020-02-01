@@ -1,0 +1,10 @@
+---
+- name: Send file
+  hosts: builder
+  tasks:
+    - name: copy key
+      copy:
+        content: "app.jar"
+        dest: "app.jar"
+        mode: 0600
+  no_log: true

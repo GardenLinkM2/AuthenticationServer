@@ -2,6 +2,7 @@ image: local_java8
 
 stages:
     - build
+    - deploy
 
 build_dev:
     stage: build
@@ -24,3 +25,11 @@ insight:
         - master
     script:
         - mvn -U clean package sonar:sonar
+
+deploy_test:
+    image: local_ansible
+    stage: deploy
+    when: manual
+    script:
+        - python3 /root/getPackage.py -r "com/gardenlink/authentication" -m true -o app.jar
+        - ansible-playbook -i deploy/inventories/prd -u centos deploy/playbook.yml
