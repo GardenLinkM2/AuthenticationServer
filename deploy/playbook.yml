@@ -4,8 +4,8 @@
   tasks:
     - name: Copy artifact
       copy:
-        content: "/root/app.jar"
-        dest: "authentication/app.jar"
+        src: /root/app.jar
+        dest: authentication/app.jar
         mode: 0600
   no_log: false
 - name: Template configuration file
