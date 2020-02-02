@@ -31,5 +31,6 @@ deploy_test:
     stage: deploy
     when: manual
     script:
+        - echo "$VAULT_PASSWORD" > vault_password.txt
         - python3 /root/getPackage.py -r "libs-release-local/com/gardenlink/authentication" -m true -o app.jar
-        - ansible-playbook -i deploy/inventories/prd --vault-password-file $ANSIBLE_PASSWORD -u administrateur deploy/playbook.yml
+        - ansible-playbook -i deploy/inventories/prd --vault-password-file vault_password.txt -u administrateur deploy/playbook.yml
