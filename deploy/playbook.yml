@@ -4,7 +4,7 @@
   tasks:
     - name: Copy artifact
       copy:
-        content: "../app.jar"
+        content: "/root/app.jar"
         dest: "authentication/app.jar"
         mode: 0600
   no_log: false
