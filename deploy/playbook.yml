@@ -10,7 +10,7 @@
   no_log: false
 - name: Template a file to /etc/files.conf
   hosts: builder
-  var_files:
+  vars_files:
     - "{{inventory_dir}}/vars.yml"
     - "{{inventory_dir}}/secrets.yml"
   template:
