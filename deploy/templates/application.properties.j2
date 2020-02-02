@@ -1,0 +1,17 @@
+#Part II - SQL Configuration
+spring.datasource.url={{secret_jdbc}}
+spring.datasource.username={{secret_jdbc_user}}
+spring.datasource.password={{secret_jdbc_pass}}
+
+#Part III - Mailer configuration.
+#Used for Newsletter's system.
+spring.mail.host=smtp.orange.fr
+spring.mail.port=587
+spring.mail.username=gardenlink@orange.fr
+spring.mail.password={{secret_mail}}
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.socketFactory.port=587
+spring.mail.properties.mail.smtp.socketFactory.class=javax.net.ssl.SSLSocketFactory
+spring.mail.properties.mail.smtp.starttls.enable=true
+spring.mail.properties.mail.smtp.ssl.trust=smtp.orange.fr
+spring.jackson.mapper.DEFAULT_VIEW_INCLUSION=true

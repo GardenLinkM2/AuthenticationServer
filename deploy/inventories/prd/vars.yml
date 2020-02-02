@@ -1,0 +1,2 @@
+docker_name: "authentication_prd"
+docker_ip: "172.16.100.100"
