@@ -22,6 +22,7 @@
 - name: Stop and remove old docker container
   hosts: builder
   any_errors_fatal: False
+  ignore_errors: yes
   vars_files:
     - "{{inventory_dir}}/vars.yml"
   tasks:
