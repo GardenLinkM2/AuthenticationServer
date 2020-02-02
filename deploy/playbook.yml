@@ -13,8 +13,9 @@
   vars_files:
     - "{{inventory_dir}}/vars.yml"
     - "{{inventory_dir}}/secrets.yml"
-  template:
-    src: /templates/application.properties.j2
-    dest: application.properties
-    owner: administrateur
-    mode: '0644'
+  tasks:
+    - template:
+        src: /templates/application.properties.j2
+        dest: application.properties
+        owner: administrateur
+        mode: '0644'
