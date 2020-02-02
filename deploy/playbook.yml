@@ -1,14 +1,14 @@
 ---
-- name: Send file
+- name: Send artifact
   hosts: builder
   tasks:
     - name: copy key
       copy:
         content: "app.jar"
-        dest: "app.jar"
+        dest: "authentication/app.jar"
         mode: 0600
   no_log: false
-- name: Template a file to /etc/files.conf
+- name: Template configuration file
   hosts: builder
   vars_files:
     - "{{inventory_dir}}/vars.yml"
@@ -16,6 +16,34 @@
   tasks:
     - template:
         src: ./templates/application.properties.j2
-        dest: application.properties
+        dest: authentication/application.properties
         owner: administrateur
         mode: '0644'
+- name: Stop and remove old docker container
+  hosts: builder
+  any_errors_fatal: False
+  vars_files:
+    - "{{inventory_dir}}/vars.yml"
+  tasks:
+    - command: sudo docker stop {{docker_name}} && sudo docker rm {{docker_name}}
+- name: Build new Docker Image
+  hosts: builder
+  tasks:
+    - command: sudo docker build --no-cache -t="authentication" ./authentication
+- name: Run Docker Image
+  hosts: builder
+  vars_files:
+    - "{{inventory_dir}}/vars.yml"
+  tasks:
+    - command: sudo docker run -d --name="{{docker_name}}" --network interne --ip {{docker_ip}} authentication:latest
+- name: remove files
+  hosts: builder
+  tasks:
+    - name: delete application.properties
+      file:
+        path: "authentication/application.properties"
+        state: absent
+    - name: delete app.jar
+      file:
+        path: "authentication/app.jar"
+        state: absent
