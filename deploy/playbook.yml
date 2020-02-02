@@ -2,7 +2,7 @@
 - name: Send artifact
   hosts: builder
   tasks:
-    - name: copy key
+    - name: Copy artifact
       copy:
         content: "app.jar"
         dest: "authentication/app.jar"
@@ -26,11 +26,12 @@
   vars_files:
     - "{{inventory_dir}}/vars.yml"
   tasks:
-    - command: sudo docker stop {{docker_name}} && sudo docker rm {{docker_name}}
+    - command: sudo docker stop {{docker_name}} 
+    - command: sudo docker rm {{docker_name}}
 - name: Build new Docker Image
   hosts: builder
   tasks:
-    - command: sudo docker build --no-cache -t="authentication" ./authentication
+    - command: sudo docker build -t="authentication" ./authentication
 - name: Run Docker Image
   hosts: builder
   vars_files:
