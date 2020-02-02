@@ -26,12 +26,26 @@ insight:
     script:
         - mvn -U clean package sonar:sonar
 
-deploy_test:
+deploy_prd:
     image: local_ansible
     stage: deploy
     when: manual
+    only:
+        - master
     script:
         - echo "$VAULT_PASSWORD" > vault_password.txt
         - python3 /root/getPackage.py -r "libs-release-local/com/gardenlink/authentication" -m true -o /root/app.jar
         - ls -lsa
         - ansible-playbook -i deploy/inventories/prd --vault-password-file vault_password.txt -u administrateur deploy/playbook.yml
+
+deploy_dev:
+    image: local_ansible
+    stage: deploy
+    when: manual
+    except:
+        - master
+    script:
+        - echo "$VAULT_PASSWORD" > vault_password.txt
+        - python3 /root/getPackage.py -r "libs-snapshot-local/com/gardenlink/authentication" -m true -o /root/app.jar
+        - ls -lsa
+        - ansible-playbook -i deploy/inventories/dev --vault-password-file vault_password.txt -u administrateur deploy/playbook.yml
