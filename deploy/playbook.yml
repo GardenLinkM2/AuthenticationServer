@@ -15,7 +15,7 @@
     - "{{inventory_dir}}/secrets.yml"
   tasks:
     - template:
-        src: /templates/application.properties.j2
+        src: ./templates/application.properties.j2
         dest: application.properties
         owner: administrateur
         mode: '0644'
