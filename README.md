@@ -11,6 +11,13 @@ Pour s'authentifier, il faut mettre le token obtenu à la connection dans l'ent�
 
 Par lisibilité, les erreurs 401 et 403 ne sont pas indiquées.
 
+### Pagination :
+Pour la pagination, vous pouvez utiliser ces 3 paramètres :
+* page : Indiquer le numéro de page
+* number : le nombre d'entrées dans la page
+* sort : permet de filtrer (name,ASC par exemple)
+
+
 ### Gestion des tokens
 ______
 #### POST /auth/token
@@ -176,7 +183,7 @@ ______
 ### Gestion des utilisateurs
 #### GET /users
 * Récupère la liste des utilisateurs (pagination)
-* Ne nécessite pas de connexion
+* Nécessite d'être connecté en utilisateur (admin ou pas)
 * Retours :
 	* 200 OK : Une liste d'utilisateurs. Si l'utilisateur n'est pas connecté ou n'est pas admin, les champs `email` et `phone` seront masqués.
 		* Body :
