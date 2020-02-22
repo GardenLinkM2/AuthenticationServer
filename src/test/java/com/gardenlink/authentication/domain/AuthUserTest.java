@@ -17,7 +17,6 @@ public class AuthUserTest {
         authUser.setId("a");
         authUser.setFirstName("Flo");
         authUser.setLastName("For");
-        authUser.setUsername("art");
         authUser.setAdmin(false);
         authUser.setEmail("test");
         authUser.setPassword("coucou");
@@ -28,7 +27,6 @@ public class AuthUserTest {
         assertThat(authUser.getId()).isEqualTo("a");
         assertThat(authUser.getFirstName()).isEqualTo("Flo");
         assertThat(authUser.getLastName()).isEqualTo("For");
-        assertThat(authUser.getUsername()).isEqualTo("art");
         assertThat(authUser.getAdmin()).isEqualTo(false);
         assertThat(authUser.getEmail()).isEqualTo("test");
         assertThat(authUser.getPassword()).isEqualTo("coucou");

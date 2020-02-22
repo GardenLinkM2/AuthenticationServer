@@ -80,19 +80,14 @@ public class TestAuthTokenService {
         assertThat(authTokenService.doConnect(dtoAuthToken)).isEqualTo(null);
         dtoAuthToken.setPassword("MTXtxJAB9LevJ5VCtORwJgbU");
         assertThat(authTokenService.doConnect(dtoAuthToken)).isEqualTo(null);
-        dtoAuthToken.setUsername ("username");
         assertThat(authTokenService.doConnect(dtoAuthToken)).isEqualTo(null);
-        when(userService.getByUsername(any())).thenReturn(null);
         assertThat(authTokenService.doConnect(dtoAuthToken)).isEqualTo(null);
 
         AuthUser authUser = new AuthUser();
         authUser.setAdmin(false);
         authUser.setId("id");
         authUser.setPassword("$2a$10$NaFTXfoR8FS6whikMG/Vs.gtdWn2FT6qm2nAsVxSl..WHXJaL3BvW");
-        authUser.setUsername("username");
 
-        when(userService.getByUsername(any())).thenReturn(authUser);
-        when(clientService.getByClientId(any())).thenReturn(null);
         assertThat(authTokenService.doConnect(dtoAuthToken)).isEqualTo(null);
 
         AuthClient authClient = new AuthClient();
@@ -100,7 +95,6 @@ public class TestAuthTokenService {
         authClient.setClientName("account");
         authClient.setClientId("id");
 
-        when(clientService.getByClientId(any())).thenReturn(authClient);
 
         authTokenService.doConnect(dtoAuthToken);
 
