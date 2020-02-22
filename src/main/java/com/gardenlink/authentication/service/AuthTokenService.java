@@ -143,7 +143,7 @@ public class AuthTokenService {
             dtoTokenInformation.setExpirationTime(claims.get("exp", Date.class));
             dtoTokenInformation.setAdmin(claims.get("isAdmin", Boolean.class));
             dtoTokenInformation.setTokenId(claims.get("jti", String.class));
-            dtoTokenInformation.setUsername(claims.get("sub", String.class));
+            dtoTokenInformation.setEmail(claims.get("sub", String.class));
             dtoTokenInformation.setUuid(claims.get("uuid", String.class));
             dtoTokenInformation.setToken(token);
 
