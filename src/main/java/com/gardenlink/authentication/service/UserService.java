@@ -67,9 +67,6 @@ public class UserService {
         }
     }
 
-    public AuthUser getByUsername(String username){
-        return userRepository.getByUsername(username).orElse(null);
-    }
 
     public AuthUser getByEmail(String email){
         return userRepository.getByEmail(email).orElse(null);
@@ -87,9 +84,6 @@ public class UserService {
 
     public AuthUser create(DTOAuthUser dtoAuthUser){
 
-        if(Constants.isEmptyOrNull(dtoAuthUser.getUsername())) {
-            return null;
-        }
         if(Constants.isEmptyOrNull(dtoAuthUser.getFirstName())) {
             return null;
         }
@@ -106,11 +100,8 @@ public class UserService {
             return null;
         }
 
-        //Check email + username unique
+        //Check email unique
         if(getByEmail(dtoAuthUser.getEmail())!=null){
-            return null;
-        }
-        if(getByUsername(dtoAuthUser.getUsername())!=null){
             return null;
         }
 
@@ -126,7 +117,6 @@ public class UserService {
             authUser.setAvatar(dtoAuthUser.getAvatar());
         }
 
-        authUser.setUsername(dtoAuthUser.getUsername());
         authUser.setFirstName(dtoAuthUser.getFirstName());
         authUser.setLastName(dtoAuthUser.getLastName());
         authUser.setEmail(dtoAuthUser.getEmail());

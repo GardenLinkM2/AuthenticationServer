@@ -54,11 +54,11 @@ public class AuthTokenService {
         if(dtoAuthToken.getPassword()==null || dtoAuthToken.getPassword().isEmpty()){
             return null;
         }
-        if(dtoAuthToken.getUsername()==null || dtoAuthToken.getUsername().isEmpty()){
+        if(dtoAuthToken.getEmail()==null || dtoAuthToken.getEmail().isEmpty()){
             return null;
         }
 
-        AuthUser authUser = userService.getByUsername(dtoAuthToken.getUsername());
+        AuthUser authUser = userService.getByEmail(dtoAuthToken.getEmail());
         if(authUser==null){
             return null;
         }
@@ -99,7 +99,7 @@ public class AuthTokenService {
                 .setId(uuid)
                 .setHeader(header)
                 .setHeaderParam("kid", authClient.getClientId())
-                .setSubject(authUser.getUsername())
+                .setSubject(authUser.getEmail())
                 .setExpiration(new Date(System.currentTimeMillis() + 2048000000))
                 .signWith(SignatureAlgorithm.HS512, authClient.getClientSecret())
                 .compact();
@@ -112,7 +112,7 @@ public class AuthTokenService {
                 .setId(uuid)
                 .setHeader(header)
                 .setHeaderParam("kid", accountClient.getClientId())
-                .setSubject(authUser.getUsername())
+                .setSubject(authUser.getEmail())
                 .setExpiration(new Date(System.currentTimeMillis() + 2048000000))
                 .signWith(SignatureAlgorithm.HS512, accountClient.getClientSecret())
                 .compact();
@@ -143,7 +143,7 @@ public class AuthTokenService {
             dtoTokenInformation.setExpirationTime(claims.get("exp", Date.class));
             dtoTokenInformation.setAdmin(claims.get("isAdmin", Boolean.class));
             dtoTokenInformation.setTokenId(claims.get("jti", String.class));
-            dtoTokenInformation.setUsername(claims.get("sub", String.class));
+            dtoTokenInformation.setEmail(claims.get("sub", String.class));
             dtoTokenInformation.setUuid(claims.get("uuid", String.class));
             dtoTokenInformation.setToken(token);
 

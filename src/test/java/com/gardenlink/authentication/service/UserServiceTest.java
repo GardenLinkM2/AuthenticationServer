@@ -67,13 +67,6 @@ public class UserServiceTest {
 
 
 
-        when(userRepository.getByUsername(any())).thenReturn(Optional.empty());
-        assertThat(userService.getByUsername("coucou")).isEqualTo(null);
-
-        when(userRepository.getByUsername(any())).thenReturn(Optional.of(authUser));
-        assertThat(userService.getByUsername("coucou")).isEqualTo(authUser);
-
-
         AuthUser authUser1 = new AuthUser();
         List<AuthUser> authUsers = new ArrayList<>();
         authUsers.add(authUser);
@@ -88,7 +81,6 @@ public class UserServiceTest {
         DTOAuthUser dtoAuthUser = new DTOAuthUser();
 
         assertThat(userService.create(dtoAuthUser)).isEqualTo(null);
-        dtoAuthUser.setUsername("coucou");
         assertThat(userService.create(dtoAuthUser)).isEqualTo(null);
         dtoAuthUser.setFirstName("flo");
         assertThat(userService.create(dtoAuthUser)).isEqualTo(null);
@@ -103,10 +95,7 @@ public class UserServiceTest {
         when(userRepository.getByEmail(any())).thenReturn(Optional.of(new AuthUser()));
         assertThat(userService.create(dtoAuthUser)).isEqualTo(null);
         when(userRepository.getByEmail(any())).thenReturn(Optional.empty());
-        when(userRepository.getByUsername(any())).thenReturn(Optional.of(new AuthUser()));
         assertThat(userService.create(dtoAuthUser)).isEqualTo(null);
-        when(userRepository.getByUsername(any())).thenReturn(Optional.empty());
-
 
         when(userRepository.save(any())).thenReturn(new AuthUser());
         userService.create(dtoAuthUser);

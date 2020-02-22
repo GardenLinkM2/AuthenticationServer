@@ -46,7 +46,6 @@ public class SetupController {
 
         DTOAuthUser dtoAuthUser =  new DTOAuthUser();
         dtoAuthUser.setPassword(RandomString.make(24));
-        dtoAuthUser.setUsername("administrator");
         dtoAuthUser.setPhone("+33610101010");
         dtoAuthUser.setFirstName("Administrator");
         dtoAuthUser.setLastName("Account");
@@ -57,7 +56,7 @@ public class SetupController {
         HashMap<String, String> ret = new HashMap<>();
         ret.put("clientID", authClient.getClientId());
         ret.put("clientSecret", authClient.getClientSecret());
-        ret.put("username", authUser.getUsername());
+        ret.put("email", authUser.getEmail());
         ret.put("password", dtoAuthUser.getPassword());
 
         return ResponseEntity.ok(ret);
