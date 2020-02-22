@@ -4,7 +4,7 @@ package com.gardenlink.authentication.domain.dto;
 public class DTOAuthToken {
 
     private String clientId;
-    private String username;
+    private String email;
     private String password;
 
 
@@ -20,12 +20,12 @@ public class DTOAuthToken {
         this.clientId = clientId;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String username) {
+        this.email = username;
     }
 
     public String getPassword() {

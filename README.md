@@ -27,7 +27,7 @@ ______
 ```json
 {
 	"clientId":"your client id",
-	"username":"User name",
+	"email":"User email",
 	"password":"User password"
 }
 ```
@@ -62,7 +62,7 @@ ______
     "uuid": "id utilisateur",
     "emitter": "service ayant émis le token",
     "tokenId": "id unique du token",
-    "username": "nom d'utilisateur",
+    "email": "adresse mail",
     "expirationTime": "date d'expiration"
 }
 ```
@@ -192,7 +192,6 @@ ______
     "content": [
         {
             "id": "aae336f0-48de-4d87-8adb-a770c83fe894",
-            "username": "artheriom",
             "firstName": "Flo",
             "lastName": "For",
             "email": "hidden",
@@ -240,7 +239,6 @@ ______
 ```json
 {
     "id": "aae336f0-48de-4d87-8adb-a770c83fe894",
-    "username": "artheriom",
     "firstName": "Flo",
     "lastName": "For",
     "email": "hidden",
@@ -282,7 +280,6 @@ ______
 * Body :
 ```json
 {
-	"username":"nom d'utilisateur",
 	"firstName":"Prénom",
 	"lastName":"Nom",
 	"password":"Mot de passe",
@@ -329,7 +326,7 @@ ______
 {
   "clientID": "Generated client id",
   "clientSecret": "Generated client secret", 
-  "username": "Generated user name",
+  "email": "Generated user email",
   "password": "Generated password"
 }
 ```
