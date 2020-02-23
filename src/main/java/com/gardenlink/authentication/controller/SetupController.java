@@ -10,6 +10,7 @@ import net.bytebuddy.utility.RandomString;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,6 +18,7 @@ import java.util.HashMap;
 
 import static com.gardenlink.authentication.Constants.ACCOUNT_CLIENT_NAME;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class SetupController {
 

@@ -21,6 +21,7 @@ import javax.validation.constraints.NotNull;
 
 import static com.gardenlink.authentication.Constants.ACCOUNT_CLIENT_NAME;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/clients")
 public class ClientController {
