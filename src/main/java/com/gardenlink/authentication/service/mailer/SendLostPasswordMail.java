@@ -2,6 +2,7 @@ package com.gardenlink.authentication.service.mailer;
 
 
 import com.gardenlink.authentication.domain.AuthUser;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 
@@ -15,6 +16,9 @@ import org.thymeleaf.context.Context;
 @Service
 public class SendLostPasswordMail {
 
+    @Value("${app.front.url}")
+    protected String frontUrl;
+
     private final TemplateEngine templateEngine;
     private final JavaMailSender javaMailSender;
 
@@ -27,7 +31,7 @@ public class SendLostPasswordMail {
     public String build(AuthUser authUser) {
         Context context = new Context();
         context.setVariable("username", authUser.getFirstName());
-        context.setVariable("url", "https://gardenlink.artheriom.fr/#/lostPassword/"  + authUser.getResetToken());
+        context.setVariable("url", frontUrl + "#/lostPassword/"  + authUser.getResetToken());
 
         return templateEngine.process("lostPasswordMail", context);
     }
@@ -44,7 +48,7 @@ public class SendLostPasswordMail {
         try {
             javaMailSender.send(messagePreparator);
         } catch (MailException e) {
-            //Ignored
+            System.out.println(e);
         }
     }
 

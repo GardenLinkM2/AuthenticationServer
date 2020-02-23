@@ -19,6 +19,7 @@ import javax.validation.constraints.NotNull;
 import static com.gardenlink.authentication.Constants.ACCOUNT_CLIENT_NAME;
 import static com.gardenlink.authentication.Constants.HIDDEN_VAR;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class UserController {
 

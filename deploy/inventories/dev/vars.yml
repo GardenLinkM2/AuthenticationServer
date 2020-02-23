@@ -1,2 +1,3 @@
 docker_name: "authentication_dev"
 docker_ip: "172.16.100.101"
+front_url: "https://devfrontm2.artheriom.fr/"
