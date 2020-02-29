@@ -63,10 +63,10 @@ public class UserControllerTest {
         user1.setPhone("0123456789");
 
         when(authTokenService.introspect(any())).thenReturn(null);
-        when(userService.getById(any())).thenReturn(user1);
+        when(userService.getByEmail(any())).thenReturn(user1);
         assertThat(userController.getUserInfo("id", request).getStatusCode()).isEqualTo(HttpStatus.OK);
 
-        when(userService.getById(any())).thenReturn(null);
+        when(userService.getByEmail(any())).thenReturn(null);
         assertThat(userController.getUserInfo("id", request).getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
