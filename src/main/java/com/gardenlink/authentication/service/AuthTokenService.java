@@ -106,6 +106,10 @@ public class AuthTokenService {
 
         retmap.put("access_token", accessToken);
 
+
+        map.put("emitter", accountClient.getClientId());
+        map.put("kid", accountClient.getClientId());
+
         //Generating user token for account update
         String userToken = Jwts.builder()
                 .setClaims(map)
