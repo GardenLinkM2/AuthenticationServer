@@ -54,6 +54,14 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
 
+
+        System.out.println(token.getEmitter());
+        System.out.println(token.getAdmin());
+        System.out.println(token.getUuid());
+
+        System.out.println(ACCOUNT_CLIENT_NAME);
+        System.out.println("coucou");
+
         if (token == null || !token.getEmitter().equals(ACCOUNT_CLIENT_NAME) || (Boolean.FALSE.equals(token.getAdmin()) && !token.getUuid().equals(id))) {
             authUser.setEmail(HIDDEN_VAR);
             authUser.setPhone(HIDDEN_VAR);
@@ -65,6 +73,7 @@ public class UserController {
     @DeleteMapping("/users/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable("id") String id, HttpServletRequest request) {
         DTOTokenInformation token = authTokenService.introspect(request.getHeader(HttpHeaders.AUTHORIZATION));
+
 
         if (token == null || !token.getEmitter().equals(ACCOUNT_CLIENT_NAME) || (Boolean.FALSE.equals(token.getAdmin()) && !token.getUuid().equals(id))) {
             return ResponseEntity.status(403).build();
