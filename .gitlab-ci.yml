@@ -14,9 +14,9 @@ build_dev:
 build_prd:
     stage: build
     only:
-        - master
+        - tags
     script:
-        - mvn -U clean deploy sonar:sonar
+        - mvn -U clean deploy sonar:sonar -Dversion $CI_COMMIT_TAG
         
 insight:
     stage: build
