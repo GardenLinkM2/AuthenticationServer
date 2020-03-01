@@ -16,13 +16,14 @@ build_prd:
     only:
         - tags
     script:
-        - mvn -U clean deploy sonar:sonar -Dversion $CI_COMMIT_TAG
+        - mvn -U clean deploy sonar:sonar -Dversion=$CI_COMMIT_TAG
         
 insight:
     stage: build
     except:
         - develop
         - master
+        - tags
     script:
         - mvn -U clean package sonar:sonar
 
