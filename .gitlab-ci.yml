@@ -15,9 +15,9 @@ build_prd:
     stage: build
     only:
         - tags
-        - master
     script:
-        - mvn -U clean deploy sonar:sonar -Dversion=$CI_COMMIT_TAG
+        - mvn versions:set -DnewVersion=$CI_COMMIT_TAG
+        - mvn -U clean deploy sonar:sonar 
         
 insight:
     stage: build
@@ -34,7 +34,6 @@ deploy_prd:
     when: manual
     only:
         - tags
-        - master
     script:
         - echo "$VAULT_PASSWORD" > vault_password.txt
         - python3 /root/getPackage.py -r "libs-release-local/com/gardenlink/authentication" -m true -o /root/app.jar
