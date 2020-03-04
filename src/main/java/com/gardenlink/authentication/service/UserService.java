@@ -29,6 +29,9 @@ public class UserService {
             return null;
         }
 
+        if(dtoAuthUser.getNewsletter()!=null){
+            authUser.setNewsletter(dtoAuthUser.getNewsletter());
+        }
         if(dtoAuthUser.getAvatar()!=null && !dtoAuthUser.getAvatar().isEmpty()) {
             authUser.setAvatar(dtoAuthUser.getAvatar());
         }
@@ -117,6 +120,7 @@ public class UserService {
             authUser.setAvatar(dtoAuthUser.getAvatar());
         }
 
+        authUser.setNewsletter(dtoAuthUser.getNewsletter());
         authUser.setFirstName(dtoAuthUser.getFirstName());
         authUser.setLastName(dtoAuthUser.getLastName());
         authUser.setEmail(dtoAuthUser.getEmail());
