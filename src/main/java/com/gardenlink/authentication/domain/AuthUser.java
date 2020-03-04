@@ -28,6 +28,8 @@ public class AuthUser {
 
     private String phone;
 
+    private Boolean newsletter;
+
     @JsonIgnore
     private String resetToken;
 
@@ -41,6 +43,14 @@ public class AuthUser {
 
     public void setResetToken(String resetToken) {
         this.resetToken = resetToken;
+    }
+
+    public Boolean getNewsletter() {
+        return newsletter;
+    }
+
+    public void setNewsletter(Boolean newsletter) {
+        this.newsletter = newsletter;
     }
 
     public String getEmail() {

@@ -44,6 +44,15 @@ public class UserController {
         return ResponseEntity.ok().body(userService.getUsers(page));
     }
 
+    @GetMapping("/users/me")
+    public ResponseEntity<AuthUser> getSelfUser(HttpServletRequest request){
+        DTOTokenInformation token = authTokenService.introspect(request.getHeader(HttpHeaders.AUTHORIZATION));
+
+        AuthUser authUser = userService.getById(token.getUuid());
+
+        return ResponseEntity.ok(authUser);
+    }
+
     @GetMapping("/users/{id}")
     public ResponseEntity<AuthUser> getUserInfo(@PathVariable("id") String id, HttpServletRequest request) {
         DTOTokenInformation token = authTokenService.introspect(request.getHeader(HttpHeaders.AUTHORIZATION));

@@ -22,8 +22,18 @@ public class DTOAuthUser {
 
     private String email;
 
+    private Boolean newsletter;
+
     public DTOAuthUser(){
         //ign
+    }
+
+    public Boolean getNewsletter() {
+        return newsletter;
+    }
+
+    public void setNewsletter(Boolean newsletter) {
+        this.newsletter = newsletter;
     }
 
     public String getId() {
