@@ -99,6 +99,14 @@ public class UserController {
             return ResponseEntity.status(403).build();
         }
 
+        //If not admin, user cannot edit some values.
+        if(!token.getAdmin()){
+            dtoAuthUser.setEmail(null);
+            dtoAuthUser.setFirstName(null);
+            dtoAuthUser.setLastName(null);
+            dtoAuthUser.setAdmin(null);
+        }
+
         AuthUser authUser = userService.updateUser(id, dtoAuthUser);
         return (authUser == null) ? ResponseEntity.notFound().build() : ResponseEntity.ok().build();
     }

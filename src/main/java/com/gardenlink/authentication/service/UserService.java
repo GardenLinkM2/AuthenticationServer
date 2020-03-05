@@ -29,6 +29,21 @@ public class UserService {
             return null;
         }
 
+        //Admin editor
+        if(dtoAuthUser.getEmail()!=null && !dtoAuthUser.getEmail().isEmpty()) {
+            authUser.setEmail(dtoAuthUser.getEmail());
+        }
+        if(dtoAuthUser.getFirstName()!=null && !dtoAuthUser.getFirstName().isEmpty()) {
+            authUser.setFirstName(dtoAuthUser.getFirstName());
+        }
+        if(dtoAuthUser.getLastName()!=null && !dtoAuthUser.getLastName().isEmpty()) {
+            authUser.setLastName(dtoAuthUser.getLastName());
+        }
+        if(dtoAuthUser.getAdmin()!=null) {
+            authUser.setAdmin(dtoAuthUser.getAdmin());
+        }
+
+        //Standard editor
         if(dtoAuthUser.getNewsletter()!=null){
             authUser.setNewsletter(dtoAuthUser.getNewsletter());
         }
