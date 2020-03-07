@@ -157,14 +157,14 @@
                                     <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 25px; padding-bottom: 25px; font-family: Tahoma, Verdana, sans-serif"><![endif]-->
                                     <div style="color:#3e4b6b;font-family:Lato, Tahoma, Verdana, Segoe, sans-serif;line-height:1.2;padding-top:25px;padding-right:10px;padding-bottom:25px;padding-left:10px;">
                                         <div style="font-size: 14px; line-height: 1.2; color: #3e4b6b; font-family: Lato, Tahoma, Verdana, Segoe, sans-serif; mso-line-height-alt: 17px;">
-                                            <p style="font-size: 38px; line-height: 1.2; word-break: break-word; text-align: center; mso-line-height-alt: 46px; margin: 0;"><span style="font-size: 38px;"><strong><span style="color: #339966;">Gestion du compte - GardenLink</span><br/></strong></span></p>
+                                            <p style="font-size: 38px; line-height: 1.2; word-break: break-word; text-align: center; mso-line-height-alt: 46px; margin: 0;"><span style="font-size: 38px;"><strong><span style="color: #339966;">Newsletter - GardenLink</span><br/></strong></span></p>
                                         </div>
                                     </div>
                                     <!--[if mso]></td></tr></table><![endif]-->
                                     <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 25px; padding-bottom: 0px; font-family: Tahoma, Verdana, sans-serif"><![endif]-->
                                     <div style="color:#3e4b6b;font-family:Lato, Tahoma, Verdana, Segoe, sans-serif;line-height:1.2;padding-top:25px;padding-right:10px;padding-bottom:0px;padding-left:10px;">
                                         <div style="font-size: 14px; line-height: 1.2; color: #3e4b6b; font-family: Lato, Tahoma, Verdana, Segoe, sans-serif; mso-line-height-alt: 17px;">
-                                            <p style="font-size: 30px; line-height: 1.2; word-break: break-word; text-align: center; mso-line-height-alt: 36px; margin: 0;"><span style="font-size: 30px;"><strong>Mot de passe oublié</strong></span></p>
+                                            <p style="font-size: 30px; line-height: 1.2; word-break: break-word; text-align: center; mso-line-height-alt: 36px; margin: 0;"><span style="font-size: 30px;"><strong th:text="${title}"></strong></span></p>
                                         </div>
                                     </div>
                                     <!--[if mso]></td></tr></table><![endif]-->
@@ -186,13 +186,7 @@
                                     <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 40px; font-family: Tahoma, Verdana, sans-serif"><![endif]-->
                                     <div style="color:#8f8f8f;font-family:Lato, Tahoma, Verdana, Segoe, sans-serif;line-height:1.5;padding-top:10px;padding-right:10px;padding-bottom:40px;padding-left:10px;">
                                         <div style="line-height: 1.5; font-size: 12px; color: #8f8f8f; font-family: Lato, Tahoma, Verdana, Segoe, sans-serif; mso-line-height-alt: 18px;">
-                                            <p>Bonjour, <span th:text="${username}"></span>
-                                            </p>
-                                            <p>Vous recevez ce mail car vous avez demandé une réinitialisation de mot de passe. </p>
-                                            <p>Pour réinitialiser votre mot de passe, cliquez ici : <a style="color:#135403" th:href="${url}"><span th:text="${url}"></span></a>.</p>
-                                            <p>Si vous n'êtes pas à l'origine de cette demande, merci d'ignorer ce mail.</p>
-                                            <p>Cordialement,</p>
-                                            <p>L'équipe de GardenLink.</p>
+                                            <p style="line-height: 1.5; word-break: break-word; mso-line-height-alt: NaNpx; margin: 0;"><span th:utext="${content}"></span></p>
                                         </div>
                                     </div>
                                     <!--[if mso]></td></tr></table><![endif]-->
