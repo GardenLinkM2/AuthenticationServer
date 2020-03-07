@@ -199,7 +199,8 @@ ______
             "email": "hidden",
             "avatar": "",
             "phone": "hidden",
-            "admin": true
+            "admin": true,
+            "newsletter" : true
         }
     ],
     "pageable": {
@@ -246,7 +247,8 @@ ______
     "email": "hidden",
     "avatar": "",
     "phone": "hidden",
-    "admin": true
+    "admin": true,
+    "newsletter" : true
 
 }
 ```
@@ -270,7 +272,8 @@ ______
 	"password":"password",
 	"phone":"phone",
 	"email":"mail",
-	"avatar":"avatar url"
+	"avatar":"avatar url",
+	"newsletter" : true
 }
 ```
 * Retours :
@@ -287,7 +290,8 @@ ______
 	"password":"Mot de passe",
 	"phone":"Téléphone",
 	"email":"Email",
-	"avatar":"Avatar (facultatif)"
+	"avatar":"Avatar (facultatif)",
+	"newsletter" : true
 }
 ```
 * Retours :
