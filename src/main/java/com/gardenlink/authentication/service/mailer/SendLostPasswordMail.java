@@ -31,7 +31,7 @@ public class SendLostPasswordMail {
     public String build(AuthUser authUser) {
         Context context = new Context();
         context.setVariable("username", authUser.getFirstName());
-        context.setVariable("url", frontUrl + "#/lostPassword/"  + authUser.getResetToken());
+        context.setVariable("url", frontUrl + "lostPassword/"  + authUser.getResetToken());
 
         return templateEngine.process("lostPasswordMail", context);
     }
